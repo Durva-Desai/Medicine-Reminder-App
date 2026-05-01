@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediCare Reminder - Your Health Companion</title>
+    <title>MediCare Reminder - Smart Day Selection</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -137,6 +137,48 @@
             gap: 1rem;
         }
 
+        /* Day Selection - NEW FEATURE */
+        .days-group {
+            margin: 1.5rem 0;
+        }
+
+        .days-group label {
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .day-btn {
+            padding: 1rem 0.5rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+
+        .day-btn.selected {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .day-btn:hover:not(.selected) {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
         /* Buttons */
         .btn {
             width: 100%;
@@ -148,6 +190,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: inherit;
+            margin-bottom: 0.5rem;
         }
 
         .btn-primary {
@@ -224,7 +267,23 @@
         .medicine-dosage {
             color: #64748b;
             font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .days-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
             margin-bottom: 1rem;
+        }
+
+        .day-tag {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .status-badge {
@@ -267,6 +326,7 @@
             display: flex;
             gap: 0.75rem;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
         /* Empty State */
@@ -385,6 +445,14 @@
             .content {
                 padding: 1.5rem 1rem;
             }
+            
+            .days-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -393,7 +461,7 @@
         <!-- Header -->
         <div class="header">
             <h1>🩺 MediCare Reminder</h1>
-            <p>Your trusted health companion</p>
+            <p>Smart reminders for specific days</p>
         </div>
 
         <!-- Navigation -->
@@ -411,7 +479,7 @@
                     <div class="empty-state">
                         <div class="empty-state-icon">💊</div>
                         <h3>No medicines added</h3>
-                        <p>Add your first medicine to get started</p>
+                        <p>Select days and add your first medicine</p>
                         <button class="btn btn-primary" onclick="showSection('add')">Add Medicine</button>
                     </div>
                 </div>
@@ -422,12 +490,12 @@
                 <form id="medicine-form">
                     <div class="form-group">
                         <label>Medicine Name *</label>
-                        <input type="text" id="medicine-name" placeholder="e.g., Paracetamol" required>
+                        <input type="text" id="medicine-name" placeholder="e.g., Vitamin D" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Dosage *</label>
-                        <input type="text" id="medicine-dosage" placeholder="e.g., 500mg tablet" required>
+                        <input type="text" id="medicine-dosage" placeholder="e.g., 1 tablet (1000 IU)" required>
                     </div>
                     
                     <div class="form-group">
@@ -441,7 +509,22 @@
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Add Reminder</button>
+                    <!-- NEW DAY SELECTION -->
+                    <div class="days-group">
+                        <label>Select Days <span style="font-size: 0.8rem; opacity: 0.7;">(Choose specific days)</span></label>
+                        <div class="days-grid">
+                            <button type="button" class="day-btn" data-day="0">Sun</button>
+                            <button type="button" class="day-btn" data-day="1">Mon</button>
+                            <button type="button" class="day-btn" data-day="2">Tue</button>
+                            <button type="button" class="day-btn" data-day="3">Wed</button>
+                            <button type="button" class="day-btn" data-day="4">Thu</button>
+                            <button type="button" class="day-btn" data-day="5">Fri</button>
+                            <button type="button" class="day-btn" data-day="6">Sat</button>
+                        </div>
+                        <div id="selected-days-display" style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">✅ Add Reminder</button>
                 </form>
             </section>
 
@@ -480,11 +563,13 @@
                 this.medicines = JSON.parse(localStorage.getItem('medicines')) || [];
                 this.history = JSON.parse(localStorage.getItem('history')) || [];
                 this.editingId = null;
+                this.selectedDays = new Set();
                 this.init();
             }
 
             init() {
                 this.bindEvents();
+                this.bindDayButtons();
                 this.renderDashboard();
                 this.renderHistory();
                 this.startAlarmCheck();
@@ -494,6 +579,10 @@
             bindEvents() {
                 document.getElementById('medicine-form').addEventListener('submit', (e) => {
                     e.preventDefault();
+                    if (this.selectedDays.size === 0) {
+                        alert('Please select at least one day!');
+                        return;
+                    }
                     this.saveMedicine();
                 });
 
@@ -501,11 +590,45 @@
                 document.getElementById('missed-btn').addEventListener('click', () => this.handleAlarmAction('missed'));
             }
 
+            bindDayButtons() {
+                document.querySelectorAll('.day-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const day = parseInt(e.target.dataset.day);
+                        if (this.selectedDays.has(day)) {
+                            this.selectedDays.delete(day);
+                            e.target.classList.remove('selected');
+                        } else {
+                            this.selectedDays.add(day);
+                            e.target.classList.add('selected');
+                        }
+                        this.updateDaysDisplay();
+                    });
+                });
+            }
+
+            updateDaysDisplay() {
+                const display = document.getElementById('selected-days-display');
+                const days = Array.from(this.selectedDays).sort((a,b) => a-b);
+                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                
+                if (days.length === 0) {
+                    display.textContent = 'No days selected';
+                    display.style.color = '#ef4444';
+                } else if (days.length === 7) {
+                    display.innerHTML = '✅ Every day';
+                    display.style.color = '#10b981';
+                } else {
+                    display.innerHTML = days.map(d => `<span class="day-tag">${dayNames[d]}</span>`).join('');
+                    display.style.color = '#3b82f6';
+                }
+            }
+
             saveMedicine() {
                 const name = document.getElementById('medicine-name').value;
                 const dosage = document.getElementById('medicine-dosage').value;
                 const time = document.getElementById('medicine-time').value;
                 const period = document.getElementById('time-period').value;
+                const days = Array.from(this.selectedDays);
 
                 const medicineData = {
                     id: this.editingId || Date.now(),
@@ -513,6 +636,7 @@
                     dosage,
                     time,
                     period,
+                    days: days,
                     status: 'upcoming',
                     createdAt: new Date().toISOString()
                 };
@@ -520,10 +644,10 @@
                 if (this.editingId) {
                     const index = this.medicines.findIndex(m => m.id === this.editingId);
                     this.medicines[index] = medicineData;
-                    this.showNotification('Medicine updated successfully!');
+                    this.showNotification('✅ Medicine updated!');
                 } else {
                     this.medicines.unshift(medicineData);
-                    this.showNotification('Medicine reminder added!');
+                    this.showNotification('✅ Reminder added for selected days!');
                 }
 
                 this.saveData();
@@ -540,16 +664,25 @@
                     document.getElementById('medicine-dosage').value = medicine.dosage;
                     document.getElementById('medicine-time').value = medicine.time;
                     document.getElementById('time-period').value = medicine.period;
+                    
+                    // Restore selected days
+                    this.selectedDays.clear();
+                    medicine.days.forEach(day => this.selectedDays.add(day));
+                    document.querySelectorAll('.day-btn').forEach(btn => {
+                        btn.classList.toggle('selected', this.selectedDays.has(parseInt(btn.dataset.day)));
+                    });
+                    this.updateDaysDisplay();
+                    
                     showSection('add');
                 }
             }
 
             deleteMedicine(id) {
-                if (confirm('Are you sure you want to delete this medicine?')) {
+                if (confirm('Delete this medicine reminder?')) {
                     this.medicines = this.medicines.filter(m => m.id !== id);
                     this.saveData();
                     this.renderDashboard();
-                    this.showNotification('Medicine deleted');
+                    this.showNotification('🗑️ Medicine deleted');
                 }
             }
 
@@ -576,7 +709,15 @@
 
             resetForm() {
                 this.editingId = null;
+                this.selectedDays.clear();
+                document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('selected'));
                 document.getElementById('medicine-form').reset();
+                this.updateDaysDisplay();
+            }
+
+            getDayNames(days) {
+                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                return days.map(d => dayNames[d]).join(', ');
             }
 
             renderDashboard() {
@@ -587,7 +728,7 @@
                         <div class="empty-state">
                             <div class="empty-state-icon">💊</div>
                             <h3>No medicines added</h3>
-                            <p>Add your first medicine to get started</p>
+                            <p>Select days and add your first medicine</p>
                             <button class="btn btn-primary" onclick="showSection('add')">Add Medicine</button>
                         </div>
                     `;
@@ -596,6 +737,7 @@
 
                 container.innerHTML = this.medicines.map(medicine => {
                     const displayTime = `${medicine.time} ${medicine.period}`;
+                    const dayNames = this.getDayNames(medicine.days);
                     const statusClass = `status-${medicine.status}`;
                     
                     return `
@@ -607,11 +749,15 @@
                                 </div>
                                 <div class="medicine-time">${displayTime}</div>
                             </div>
+                            <div class="days-display">
+                                <span style="font-size: 0.85rem; color: #64748b; margin-right: 0.5rem;">Days:</span>
+                                ${medicine.days.map(d => `<span class="day-tag">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d]}</span>`).join('')}
+                            </div>
                             <span class="status-badge ${statusClass}">${this.getStatusText(medicine.status)}</span>
                             <div class="card-actions">
                                 ${medicine.status === 'upcoming' || medicine.status === 'due' ? `
-                                    <button class="btn btn-success" onclick="app.markStatus(${medicine.id}, 'taken')">✅ Taken</button>
-                                    <button class="btn btn-danger" onclick="app.markStatus(${medicine.id}, 'missed')">❌ Missed</button>
+                                    <button class="btn btn-success" onclick="app.markStatus(${medicine.id}, 'taken')" style="flex: 1;">✅ Taken</button>
+                                    <button class="btn btn-danger" onclick="app.markStatus(${medicine.id}, 'missed')" style="flex: 1;">❌ Missed</button>
                                 ` : ''}
                                 <button class="btn btn-edit" onclick="app.editMedicine(${medicine.id})">✏️ Edit</button>
                                 <button class="btn btn-danger" style="padding: 0.75rem 1rem; font-size: 0.85rem;" onclick="app.deleteMedicine(${medicine.id})">🗑️ Delete</button>
@@ -655,7 +801,7 @@
             getStatusText(status) {
                 const texts = {
                     upcoming: 'Upcoming',
-                    due: 'Due Now',
+                    due: 'Due Today',
                     taken: 'Taken',
                     missed: 'Missed'
                 };
@@ -665,12 +811,16 @@
             startAlarmCheck() {
                 setInterval(() => {
                     this.checkAlarms();
-                }, 30000); // Check every 30 seconds
+                }, 30000);
             }
 
             checkAlarms() {
                 const now = new Date();
+                const today = now.getDay(); // 0 = Sunday, 6 = Saturday
+                
                 this.medicines.forEach(medicine => {
+                    // Check if today is a scheduled day
+                    if (!medicine.days.includes(today)) return;
                     if (medicine.status !== 'upcoming' && medicine.status !== 'due') return;
 
                     const [hours, minutes] = this.convertTo24Hour(medicine.time, medicine.period).split(':');
@@ -679,8 +829,7 @@
 
                     const timeDiff = alarmTime - now;
                     
-                    // Trigger alarm if within 2 minutes window
-                    if (timeDiff > 0 && timeDiff <= 120000) {
+                    if (timeDiff > 0 && timeDiff <= 120000) { // 2 minute window
                         medicine.status = 'due';
                         this.triggerAlarm(medicine);
                         this.saveData();
@@ -701,10 +850,8 @@
                 document.getElementById('alarm-subtitle').textContent = `${medicine.dosage} • ${medicine.time} ${medicine.period}`;
                 document.getElementById('alarm-modal').classList.add('active');
                 
-                // Play sound
                 this.playAlarmSound();
                 
-                // Vibrate if supported
                 if (navigator.vibrate) {
                     navigator.vibrate([200, 100, 200]);
                 }
@@ -719,7 +866,6 @@
             }
 
             playAlarmSound() {
-                // Simple beep sound using Web Audio API
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
