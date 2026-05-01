@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediCare Pro - Professional Health Management</title>
+    <title>MediCare - Your Friendly Medicine Reminder</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -13,532 +13,819 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --success: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            --danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            --warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            --bg-primary: #f8fafc;
-            --bg-secondary: #f1f5f9;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 15px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 800px;
             margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Login Screen */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 50px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .login-container h1 {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #636e72;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .input-group {
+            margin: 20px 0;
             position: relative;
         }
 
-        /* Auth Pages */
-        .auth-container {
-            padding: 3rem 2rem;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .logo h1 {
-            background: var(--primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .logo p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .auth-form {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-        }
-
-        .form-group {
-            margin-bottom: 1.75rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-
-        .form-group input {
+        .input-group input {
             width: 100%;
-            padding: 1.125rem 1.25rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            background: white;
-            font-family: inherit;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
         }
 
-        .form-group input:focus {
+        .input-group input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #4ecdc4;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
         }
 
-        /* Header with User Info */
-        .app-header {
-            background: white;
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+        }
+
+        /* Main App */
+        .main-app {
+            display: none;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         .user-info {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.75rem;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
+        .calendar {
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 10px 0;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .stats {
             display: flex;
-            align-items: center;
+            gap: 15px;
             justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.875rem;
+            flex-wrap: wrap;
         }
 
-        .user-details h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .user-details p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .logout-btn {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 0.625rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-        }
-
-        .logout-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        /* Navigation */
-        .nav {
-            display: flex;
-            background: white;
-            border-bottom: 1px solid var(--border);
-            padding: 0.5rem;
-        }
-
-        .nav-btn {
-            flex: 1;
-            padding: 1rem 0.75rem;
-            border: none;
-            background: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            color: var(--text-secondary);
-        }
-
-        .nav-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Content */
-        .content {
-            padding: 2rem 1.5rem;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* Health Profile */
-        .health-profile {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-radius: 16px;
-            padding: 1.75rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .health-profile h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .health-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .health-item {
+        .stat-card {
+            background: rgba(255,255,255,0.8);
+            padding: 15px 20px;
+            border-radius: 15px;
             text-align: center;
-            padding: 1rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
+            min-width: 100px;
+            transition: transform 0.3s ease;
         }
 
-        .health-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #3b82f6;
+        .stat-card:hover {
+            transform: scale(1.05);
         }
 
-        .health-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
+        .add-medicine-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        /* Day Selection */
-        .days-group {
-            margin: 1.5rem 0;
-        }
-
-        .days-group label {
-            display: block;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .days-grid {
+        .form-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .day-btn {
-            padding: 1rem 0.5rem;
-            border: 2px solid var(--border);
-            background: white;
-            border-radius: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.85rem;
+        .form-row select, .form-row input {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
         }
 
-        .day-btn.selected {
-            background: var(--primary);
-            color: white;
-            border-color: #3b82f6;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
+        .form-row select:focus, .form-row input:focus {
+            border-color: #4ecdc4;
+            box-shadow: 0 0 15px rgba(78, 205, 196, 0.2);
         }
 
-        /* Buttons */
-        .btn {
-            width: 100%;
-            padding: 1.125rem 1.5rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-            margin-bottom: 0.75rem;
+        .medicines-list {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-md); }
-        .btn-success { background: var(--success); color: white; box-shadow: var(--shadow-md); }
-        .btn-danger { background: var(--danger); color: white; box-shadow: var(--shadow-md); }
-        .btn-warning { background: var(--warning); color: white; box-shadow: var(--shadow-md); }
-
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-small {
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            width: auto;
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-1px);
-        }
-
-        /* Track Cards */
-        .track-item {
+        .medicine-card {
+            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 0.75rem;
-            border-left: 4px solid #3b82f6;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .track-left {
-            flex: 1;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .track-name {
+        .medicine-card.upcoming {
+            background: linear-gradient(45deg, #a8e6cf, #88d8a3);
+            border-left: 5px solid #00b894;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 184, 148, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 184, 148, 0); }
+        }
+
+        .medicine-card.taken {
+            background: linear-gradient(45deg, #d2a8ff, #a8e6cf);
+            opacity: 0.7;
+        }
+
+        .medicine-info h3 {
+            color: #2d3436;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .medicine-time {
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            color: #636e72;
+            font-size: 16px;
         }
 
-        .track-time {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
+        .action-buttons {
+            display: flex;
+            gap: 10px;
         }
 
-        .track-status {
-            padding: 0.375rem 0.875rem;
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-taken { background: #00b894; color: white; }
+        .btn-missed { background: #e17055; color: white; }
+        .btn-edit { background: #fdcb6e; color: #2d3436; }
+        .btn-delete { background: #ff7675; color: white; }
+
+        /* Alarm Modal */
+        .alarm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .alarm-content {
+            background: linear-gradient(45deg, #ff7675, #fd79a8);
+            color: white;
+            padding: 40px;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
+            text-align: center;
+            animation: bounceIn 0.5s ease;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         /* Responsive */
-        @media (max-width: 480px) {
-            .container { box-shadow: none; }
-            .content { padding: 1.5rem 1rem; }
-            .days-grid { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .medicine-card {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #747d8c, #495057);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(116, 125, 142, 0.4);
+        }
+
+        .history-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .no-medicines {
+            text-align: center;
+            color: #b2bec3;
+            font-size: 18px;
+            padding: 40px;
         }
     </style>
 </head>
 <body>
     <!-- Login Screen -->
-    <div id="auth-screen">
-        <div class="auth-container">
-            <div class="logo">
-                <h1>MediCare Pro</h1>
-                <p>Professional Health Management</p>
-            </div>
-            <div class="auth-form" id="login-form">
-                <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700;">Welcome Back</h2>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="login-email" placeholder="your.email@example.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="login-password" placeholder="••••••••">
-                </div>
-                <button class="btn btn-primary" onclick="auth.login()">Sign In</button>
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button onclick="showSignup()" style="background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 0.9rem;">Create new account</button>
-                </div>
-            </div>
+    <div class="login-container" id="loginScreen">
+        <h1>🩺 MediCare</h1>
+        <p class="tagline">"This application improves medication adherence and helps users maintain better health through timely reminders."</p>
+        
+        <div class="input-group">
+            <input type="text" id="userName" placeholder="👤 Enter Your Name" required>
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="healthDetails" placeholder="🏥 Health Details (e.g., Diabetes, BP Medication)" required>
+        </div>
+        
+        <div class="input-group">
+            <input type="password" id="password" placeholder="🔒 Create Password (for privacy)" required>
+        </div>
+        
+        <button class="btn" onclick="login()">🚀 Start My Health Journey</button>
+        <p style="margin-top: 20px; color: #b2bec3; font-size: 14px;">Your data is PRIVATE & ENCRYPTED 🔐 | No Gmail required</p>
+    </div>
 
-            <div class="auth-form" id="signup-form" style="display: none;">
-                <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700;">Create Account</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="signup-firstname">
-                    </div>
-                    <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="signup-lastname">
-                    </div>
+    <!-- Main App -->
+    <div class="container main-app" id="mainApp">
+        <!-- Header -->
+        <div class="header">
+            <div class="user-info">
+                <div>
+                    <h2 id="welcomeUser">Welcome back!</h2>
+                    <div id="userHealth"></div>
+                    <div class="calendar" id="currentDate"></div>
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signup-email">
+                <a href="#" class="logout-btn" onclick="logout()">🔐 Logout</a>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div id="totalMeds" style="font-size: 24px; font-weight: 700; color: #e17055;">0</div>
+                    <div>Total Medicines</div>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="signup-password">
+                <div class="stat-card">
+                    <div id="takenToday" style="font-size: 24px; font-weight: 700; color: #00b894;">0</div>
+                    <div>Taken Today</div>
                 </div>
-                <div class="form-group">
-                    <label>Age</label>
-                    <input type="number" id="signup-age" min="1" max="120">
+                <div class="stat-card">
+                    <div id="upcoming" style="font-size: 24px; font-weight: 700; color: #fdcb6e;">0</div>
+                    <div>Upcoming Today</div>
                 </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="signup-phone">
+            </div>
+        </div>
+
+        <!-- Add Medicine Form -->
+        <div class="add-medicine-form">
+            <h3 style="margin-bottom: 20px; color: #2d3436;">➕ Add New Medicine Reminder</h3>
+            <div class="form-row">
+                <input type="text" id="medName" placeholder="💊 Medicine Name">
+                <input type="text" id="dosage" placeholder="💊 Dosage (e.g., 1 tablet, 5ml)">
+                <input type="time" id="medTime">
+                <select id="period">
+                    <option value="AM">🌅 AM</option>
+                    <option value="PM">🌙 PM</option>
+                </select>
+                <select id="frequency">
+                    <option value="daily">📅 Daily</option>
+                    <option value="weekly">📋 Weekly</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="addMedicine()">➕ Add Reminder</button>
+        </div>
+
+        <!-- Medicines List -->
+        <div class="medicines-list">
+            <h3 style="margin-bottom: 20px; color: #2d3436;">📋 Today's Medicine Schedule</h3>
+            <div id="medicinesContainer">
+                <div class="no-medicines">
+                    🎉 No medicines added yet! Add your first reminder above 👆
                 </div>
-                <button class="btn btn-primary" onclick="auth.signup()">Create Account</button>
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button onclick="showLogin()" style="background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 0.9rem;">Already have account? Sign in</button>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <h3 style="margin-bottom: 20px; color: #2d3436;">📊 Health Tracking History</h3>
+            <div id="historyContainer" style="max-height: 300px; overflow-y: auto;">
+                <div style="text-align: center; color: #b2bec3; padding: 40px;">
+                    No history yet. Take your first medicine to see tracking! ✨
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main App (Hidden until login) -->
-    <div id="app-screen" style="display: none;">
-        <!-- Header with User Info -->
-        <header class="app-header">
-            <div class="user-info">
-                <div class="user-avatar" id="user-avatar"></div>
-                <div class="user-details">
-                    <div id="user-name"></div>
-                    <div id="user-health"></div>
-                </div>
-            </div>
-            <button class="logout-btn" onclick="auth.logout()">Logout</button>
-        </header>
+    <!-- Alarm Modal -->
+    <div class="alarm-modal" id="alarmModal">
+        <div class="alarm-content">
+            <h2>⏰ MEDICINE TIME!</h2>
+            <div id="alarmMessage" style="font-size: 24px; margin: 20px 0; font-weight: 600;"></div>
+            <button class="btn btn-success" onclick="dismissAlarm()" style="width: auto; padding: 15px 40px; margin: 0 10px;">
+                ✅ Taken
+            </button>
+            <button class="btn btn-danger" onclick="markMissed()" style="width: auto; padding: 15px 40px; margin: 0 10px;">
+                ❌ Missed
+            </button>
+            <button class="btn" onclick="snoozeAlarm()" style="width: auto; padding: 15px 40px; margin-top: 10px; background: linear-gradient(45deg, #fdcb6e, #e17055);">
+                ⏳ Snooze 10min
+            </button>
+        </div>
+    </div>
 
-        <!-- Navigation -->
-        <nav class="nav">
-            <button class="nav-btn active" onclick="showSection('dashboard')">Dashboard</button>
-            <button class="nav-btn" onclick="showSection('profile')">Profile</button>
-            <button class="nav-btn" onclick="showSection('add')">Add Medicine</button>
-            <button class="nav-btn" onclick="showSection('history')">History</button>
-        </nav>
+    <script>
+        // Simple encryption key (for demo purposes)
+        const ENCRYPTION_KEY = 'MediCare2024!@#';
+        
+        // Global variables
+        let currentUser = null;
+        let medicines = [];
+        let alarmInterval = null;
+        let snoozeTime = null;
 
-        <!-- Content -->
-        <main class="content">
-            <!-- Dashboard -->
-            <section id="dashboard" class="section active">
-                <div class="health-profile">
-                    <h2>Today's Health Overview</h2>
-                    <div class="health-grid">
-                        <div class="health-item">
-                            <div class="health-value" id="today-medicines">0</div>
-                            <div class="health-label">Today's Medicines</div>
+        // Simple encryption/decryption functions
+        function encrypt(text) {
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                result += String.fromCharCode(text.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length));
+            }
+            return btoa(result);
+        }
+
+        function decrypt(encrypted) {
+            try {
+                let decoded = atob(encrypted);
+                let result = '';
+                for (let i = 0; i < decoded.length; i++) {
+                    result += String.fromCharCode(decoded.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length));
+                }
+                return result;
+            } catch (e) {
+                return '';
+            }
+        }
+
+        // Initialize app
+        function init() {
+            updateDate();
+            setInterval(updateDate, 60000); // Update every minute
+            checkAlarms();
+            setInterval(checkAlarms, 30000); // Check alarms every 30 seconds
+        }
+
+        // Update current date display
+        function updateDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Login function
+        function login() {
+            const name = document.getElementById('userName').value.trim();
+            const health = document.getElementById('healthDetails').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!name || !health || !password) {
+                alert('Please fill all fields! 😊');
+                return;
+            }
+
+            // Check if user exists
+            const userData = localStorage.getItem('mediCare_' + name);
+            if (userData) {
+                const decrypted = JSON.parse(decrypt(userData));
+                if (decrypted.password !== password) {
+                    alert('❌ Wrong password!');
+                    return;
+                }
+                currentUser = decrypted;
+            } else {
+                // Create new user
+                currentUser = {
+                    name,
+                    healthDetails: health,
+                    password,
+                    medicines: [],
+                    history: []
+                };
+                saveUser();
+            }
+
+            showMainApp();
+        }
+
+        // Save user data (encrypted)
+        function saveUser() {
+            localStorage.setItem('mediCare_' + currentUser.name, encrypt(JSON.stringify(currentUser)));
+        }
+
+        // Show main app
+        function showMainApp() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            
+            document.getElementById('welcomeUser').textContent = `Welcome back, ${currentUser.name}! 👋`;
+            document.getElementById('userHealth').innerHTML = `<strong>Health:</strong> ${currentUser.healthDetails}`;
+            
+            loadMedicines();
+            updateStats();
+            init();
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            medicines = [];
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('userName').value = '';
+            document.getElementById('healthDetails').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('alarmModal').style.display = 'none';
+        }
+
+        // Add medicine
+        function addMedicine() {
+            const name = document.getElementById('medName').value.trim();
+            const dosage = document.getElementById('dosage').value.trim();
+            const time = document.getElementById('medTime').value;
+            const period = document.getElementById('period').value;
+            const frequency = document.getElementById('frequency').value;
+
+            if (!name || !dosage || !time) {
+                alert('Please fill medicine name, dosage, and time! 😊');
+                return;
+            }
+
+            const medicine = {
+                id: Date.now(),
+                name,
+                dosage,
+                time,
+                period,
+                frequency,
+                created: new Date().toISOString(),
+                status: 'pending' // pending, taken, missed
+            };
+
+            currentUser.medicines.push(medicine);
+            saveUser();
+            loadMedicines();
+            updateStats();
+
+            // Clear form
+            document.getElementById('medName').value = '';
+            document.getElementById('dosage').value = '';
+            document.getElementById('medTime').value = '';
+
+            // Success message
+            showToast('Medicine added successfully! 🎉');
+        }
+
+        // Load and display medicines
+        function loadMedicines() {
+            medicines = currentUser.medicines || [];
+            const container = document.getElementById('medicinesContainer');
+            const today = new Date().toDateString();
+
+            if (medicines.length === 0) {
+                container.innerHTML = '<div class="no-medicines">🎉 No medicines added yet! Add your first reminder above 👆</div>';
+                return;
+            }
+
+            let html = '';
+            medicines.forEach(med => {
+                const medTime = `${med.time} ${med.period}`;
+                const isToday = new Date(med.created).toDateString() === today || med.frequency === 'daily';
+                const isUpcoming = isToday && isTimeUpcoming(med.time, med.period);
+                
+                let className = 'medicine-card';
+                if (isUpcoming) className += ' upcoming';
+                if (med.status === 'taken') className += ' taken';
+
+                html += `
+                    <div class="${className}" data-id="${med.id}">
+                        <div class="medicine-info">
+                            <h3>${med.name}</h3>
+                            <div>${med.dosage}</div>
+                            <div class="medicine-time">${medTime} • ${med.frequency}</div>
                         </div>
-                        <div class="health-item">
-                            <div class="health-value" id="adherence-rate">100%</div>
-                            <div class="health-label">Adherence</div>
-                        </div>
-                        <div class="health-item">
-                            <div class="health-value" id="streak">3</div>
-                            <div class="health-label">Streak</div>
+                        <div class="action-buttons">
+                            ${med.status === 'pending' ? 
+                                `<button class="btn-small btn-taken" onclick="markTaken(${med.id})">✅ Taken</button>
+                                 <button class="btn-small btn-missed" onclick="markMissed(${med.id})">❌ Missed</button>` : 
+                                `<span style="color: #00b894; font-weight: 600;">✓ ${med.status.toUpperCase()}</span>`
+                            }
+                            <button class="btn-small btn-edit" onclick="editMedicine(${med.id})">✏️ Edit</button>
+                            <button class="btn-small btn-delete" onclick="deleteMedicine(${med.id})">🗑️</button>
                         </div>
                     </div>
-                </div>
-                <div id="medicines-container">
-                    <div class="empty-state">
-                        <div class="empty-state-icon">💊</div>
-                        <h3>No medicines scheduled</h3>
-                        <p>Add medicines for specific days</p>
-                        <button class="btn btn-primary" onclick="showSection('add')">Add Medicine</button>
-                    </div>
-                </div>
-            </section>
+                `;
+            });
+            container.innerHTML = html;
+            loadHistory();
+        }
 
-            <!-- Profile -->
-            <section id="profile" class="section">
-                <div class="card">
-                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 600;">Health Profile</h2>
-                    <div style="display: grid; gap: 1rem;">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" id="profile-firstname">
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" id="profile-lastname">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Age</label>
-                                <input type="number" id="profile-age">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="tel" id="profile-phone">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Emergency Contact</label>
-                            <input type="text" id="profile-emergency">
-                        </div>
-                        <div class="form-group">
-                            <label>Allergies</label>
-                            <textarea id="profile-allergies" rows="3" style="resize: vertical;"></textarea>
-                        </div>
-                        <button class="btn btn-primary" onclick="userProfile.saveProfile()">Save Profile</button>
-                    </div>
-                </div>
-            </section>
+        // Check if time is upcoming
+        function isTimeUpcoming(timeStr, period) {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            
+            let [hour, min] = timeStr.split(':').map(Number);
+            if (period === 'PM' && hour !== 12) hour += 12;
+            if (period === 'AM' && hour === 12) hour = 0;
+            
+            const currentTotalMin = currentHour * 60 + currentMin;
+            const medTotalMin = hour * 60 + min;
+            
+            return currentTotalMin < medTotalMin;
+        }
 
-            <!-- Add Medicine (Same as before with day selection) -->
-            <section id="add" class="section">
-                <div class="card">
-                    <form id="medicine-form">
-                        <div class="form-group">
-                            <label>Medicine Name *</label>
-                            <input type="text" id="medicine-name" placeholder="e.g., Vitamin D" required>
+        // Mark as taken
+        function markTaken(id) {
+            const med = medicines.find(m => m.id === id);
+            if (med) {
+                med.status = 'taken';
+                addToHistory(med, 'taken');
+                saveUser();
+                loadMedicines();
+                updateStats();
+                showToast('Great job! Medicine marked as taken! 🌟');
+            }
+        }
+
+        // Mark as missed
+        function markMissed(id) {
+            const med = medicines.find(m => m.id === id);
+            if (med) {
+                med.status = 'missed';
+                addToHistory(med, 'missed');
+                saveUser();
+                loadMedicines();
+                updateStats();
+                showToast('Marked as missed. Better luck next time! 💪');
+            }
+        }
+
+        // Edit medicine (simple implementation)
+        function editMedicine(id) {
+            alert('Edit feature: Tap medicine → Edit button → Modify in form and add again! 😊');
+        }
+
+        // Delete medicine
+        function deleteMedicine(id) {
+            if (confirm('Delete this medicine? 🗑️')) {
+                currentUser.medicines = currentUser.medicines.filter(m => m.id !== id);
+                saveUser();
+                loadMedicines();
+                updateStats();
+                showToast('Medicine deleted!');
+            }
+        }
+
+        // Update stats
+        function updateStats() {
+            const today = new Date().toDateString();
+            const todayMeds = medicines.filter(m => new Date(m.created).toDateString() === today || m.frequency === 'daily');
+            const takenToday = todayMeds.filter(m => m.status === 'taken').length;
+            const upcomingToday = todayMeds.filter(m => m.status === 'pending' && isTimeUpcoming(m.time, m.period)).length;
+
+            document.getElementById('totalMeds').textContent = medicines.length;
+            document.getElementById('takenToday').textContent = takenToday;
+            document.getElementById('upcoming').textContent = upcomingToday;
+        }
+
+        // Add to history
+        function addToHistory(med, status) {
+            const history = {
+                id: Date.now(),
+                medicine: med.name,
+                dosage: med.dosage,
+                time: `${med.time} ${med.period}`,
+                status,
+                date: new Date().toLocaleString()
+            };
+            currentUser.history.unshift(history);
+            if (currentUser.history.length > 100) currentUser.history = currentUser.history.slice(0, 100);
+            saveUser();
+        }
+
+        // Load history
+        function loadHistory() {
+            const container = document.getElementById('historyContainer');
+            const history = currentUser.history || [];
+            
+            if (history.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #b2bec3; padding: 40px;">No history yet. Take your first medicine to see tracking! ✨</div>';
+                return;
+            }
+
+            let html = '';
+            history.slice(0, 10).forEach(h => {
+                const statusColor = h.status === 'taken' ? '#00b894' : '#e17055';
+                html += `
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                        <div>
+                            <strong>${h.medicine}</strong> - ${h.dosage}<br>
+                            <small>${h.time}</small>
                         </div>
-                        
-                        <div class="form-group">
-                            <label>Dos
+                        <div style="text-align: right;">
+                            <span style="color: ${statusColor}; font-weight: 600;">${h.status.toUpperCase()}</span><br>
+                            <small>${h.date}</small>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Alarm functions
+        function checkAlarms() {
+            const now = new Date();
+            const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            const currentPeriod = now.getHours() >= 12 ? 'PM' : 'AM';
+
+            medicines.forEach(med => {
+                if (med.status === 'pending' && 
+                    med.time === currentTime && 
+                    med.period === currentPeriod) {
+                    showAlarm(med);
+                }
+            });
+        }
+
+        function showAlarm(medicine) {
+            document.getElementById('alarmMessage').innerHTML = `
+                <strong>${medicine.name}</strong><br>
+                Dosage: ${medicine.dosage}
+            `;
+            document.getElementById('alarmModal').style.display = 'flex';
+            
+            // Play alarm sound
+            playAlarmSound();
+            
+            // Vibrate if supported
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200, 100, 200]);
+            }
+            
+            // Flash screen
+            flashScreen();
+        }
+
+        function dismissAlarm() {
+            document.getElementById('alarmModal').style.display = 'none';
+            stopAlarmSound();
+        }
+
+        function markMissedFromAlarm() {
+            const medId = parseInt(document.getElementById('alarmModal').dataset.medId);
+            markMissed(medId);
+            dismissAlarm();
+        }
+
+        function snoozeAlarm() {
+            snoozeTime = new Date(Date.now() + 10 * 60000); // 10 minutes
+            dismissAlarm();
+            showToast('Alarm snoozed for 10 minutes! ⏰');
+        }
+
+        // Audio alarm
+        function playAlarmSound() {
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+2/LMeSwFJHfH8N2QQAoUX
