@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediCare Reminder - Smart Day Selection</title>
+    <title>MediCare Pro - Professional Health Management</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -13,53 +13,177 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #f1f5f9 100%);
-            min-height: 100vh;
-            color: #334155;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 480px;
+            max-width: 500px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             min-height: 100vh;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
-            padding: 2rem 1.5rem 1.5rem;
+        /* Auth Pages */
+        .auth-container {
+            padding: 3rem 2rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .logo {
             text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .header h1 {
-            font-size: 1.75rem;
+        .logo h1 {
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .header p {
+        .logo p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .auth-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: var(--text-primary);
             font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1.125rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: white;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Header with User Info */
+        .app-header {
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .user-details h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-details p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
             opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         /* Navigation */
         .nav {
             display: flex;
             background: white;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border);
             padding: 0.5rem;
         }
 
         .nav-btn {
             flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 1rem 0.75rem;
             border: none;
             background: none;
             font-size: 0.9rem;
@@ -67,17 +191,12 @@
             cursor: pointer;
             border-radius: 12px;
             transition: all 0.2s ease;
-            color: #64748b;
+            color: var(--text-secondary);
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: var(--primary);
             color: white;
-        }
-
-        .nav-btn:hover {
-            background: #f1f5f9;
-            color: #3b82f6;
         }
 
         /* Content */
@@ -94,50 +213,49 @@
             animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Health Profile */
+        .health-profile {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
-        /* Form */
-        .form-group {
-            margin-bottom: 1.5rem;
+        .health-profile h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .time-group {
+        .health-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
         }
 
-        /* Day Selection - NEW FEATURE */
+        .health-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .health-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .health-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Day Selection */
         .days-group {
             margin: 1.5rem 0;
         }
@@ -146,7 +264,7 @@
             display: block;
             margin-bottom: 1rem;
             font-weight: 600;
-            color: #1e293b;
+            color: var(--text-primary);
         }
 
         .days-grid {
@@ -157,7 +275,7 @@
 
         .day-btn {
             padding: 1rem 0.5rem;
-            border: 2px solid #e2e8f0;
+            border: 2px solid var(--border);
             background: white;
             border-radius: 12px;
             font-weight: 500;
@@ -167,16 +285,11 @@
         }
 
         .day-btn.selected {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: var(--primary);
             color: white;
             border-color: #3b82f6;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .day-btn:hover:not(.selected) {
-            border-color: #3b82f6;
-            background: #eff6ff;
+            box-shadow: var(--shadow-md);
         }
 
         /* Buttons */
@@ -190,283 +303,161 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: inherit;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
+        .btn-primary { background: var(--primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-success { background: var(--success); color: white; box-shadow: var(--shadow-md); }
+        .btn-danger { background: var(--danger); color: white; box-shadow: var(--shadow-md); }
+        .btn-warning { background: var(--warning); color: white; box-shadow: var(--shadow-md); }
 
-        .btn-primary:hover {
+        .btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            box-shadow: var(--shadow-lg);
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-edit {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        .btn-small {
             padding: 0.75rem 1rem;
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             width: auto;
         }
 
-        /* Medicine Cards */
-        .medicine-card {
+        /* Cards */
+        .card {
             background: white;
             border-radius: 16px;
             padding: 1.5rem;
             margin-bottom: 1.25rem;
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
             transition: all 0.2s ease;
         }
 
-        .medicine-card:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
         }
 
-        .medicine-header {
+        /* Track Cards */
+        .track-item {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
             margin-bottom: 0.75rem;
+            border-left: 4px solid #3b82f6;
         }
 
-        .medicine-name {
-            font-size: 1.25rem;
+        .track-left {
+            flex: 1;
+        }
+
+        .track-name {
             font-weight: 600;
-            color: #1e293b;
             margin-bottom: 0.25rem;
         }
 
-        .medicine-time {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
-            padding: 0.5rem 1rem;
+        .track-time {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .track-status {
+            padding: 0.375rem 0.875rem;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .medicine-dosage {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .days-display {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .day-tag {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            color: #1e40af;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.375rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-
-        .status-upcoming {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            color: #1e40af;
-        }
-
-        .status-due {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #92400e;
-            animation: pulse 2s infinite;
-        }
-
-        .status-taken {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            color: #065f46;
-        }
-
-        .status-missed {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            color: #991b1b;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: #94a3b8;
-        }
-
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.5;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #64748b;
-        }
-
-        /* Alarm Modal */
-        .alarm-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-
-        .alarm-modal.active {
-            display: flex;
-        }
-
-        .alarm-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            animation: alarmSlideIn 0.3s ease;
-        }
-
-        @keyframes alarmSlideIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .alarm-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .alarm-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: #1e293b;
-        }
-
-        .alarm-subtitle {
-            font-size: 1.1rem;
-            color: #64748b;
-            margin-bottom: 2rem;
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 999;
-            font-weight: 500;
-        }
-
-        .notification.show {
-            transform: translateX(0);
         }
 
         /* Responsive */
         @media (max-width: 480px) {
-            .container {
-                margin: 0;
-                border-radius: 0;
-                min-height: 100vh;
-            }
-            
-            .content {
-                padding: 1.5rem 1rem;
-            }
-            
-            .days-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .card-actions {
-                flex-direction: column;
-            }
+            .container { box-shadow: none; }
+            .content { padding: 1.5rem 1rem; }
+            .days-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🩺 MediCare Reminder</h1>
-            <p>Smart reminders for specific days</p>
+    <!-- Login Screen -->
+    <div id="auth-screen">
+        <div class="auth-container">
+            <div class="logo">
+                <h1>MediCare Pro</h1>
+                <p>Professional Health Management</p>
+            </div>
+            <div class="auth-form" id="login-form">
+                <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700;">Welcome Back</h2>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••">
+                </div>
+                <button class="btn btn-primary" onclick="auth.login()">Sign In</button>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button onclick="showSignup()" style="background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 0.9rem;">Create new account</button>
+                </div>
+            </div>
+
+            <div class="auth-form" id="signup-form" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700;">Create Account</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="signup-firstname">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="signup-lastname">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signup-email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signup-password">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="signup-age" min="1" max="120">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="signup-phone">
+                </div>
+                <button class="btn btn-primary" onclick="auth.signup()">Create Account</button>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button onclick="showLogin()" style="background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 0.9rem;">Already have account? Sign in</button>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Main App (Hidden until login) -->
+    <div id="app-screen" style="display: none;">
+        <!-- Header with User Info -->
+        <header class="app-header">
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar"></div>
+                <div class="user-details">
+                    <div id="user-name"></div>
+                    <div id="user-health"></div>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="auth.logout()">Logout</button>
+        </header>
 
         <!-- Navigation -->
         <nav class="nav">
             <button class="nav-btn active" onclick="showSection('dashboard')">Dashboard</button>
+            <button class="nav-btn" onclick="showSection('profile')">Profile</button>
             <button class="nav-btn" onclick="showSection('add')">Add Medicine</button>
             <button class="nav-btn" onclick="showSection('history')">History</button>
         </nav>
@@ -475,453 +466,79 @@
         <main class="content">
             <!-- Dashboard -->
             <section id="dashboard" class="section active">
+                <div class="health-profile">
+                    <h2>Today's Health Overview</h2>
+                    <div class="health-grid">
+                        <div class="health-item">
+                            <div class="health-value" id="today-medicines">0</div>
+                            <div class="health-label">Today's Medicines</div>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-value" id="adherence-rate">100%</div>
+                            <div class="health-label">Adherence</div>
+                        </div>
+                        <div class="health-item">
+                            <div class="health-value" id="streak">3</div>
+                            <div class="health-label">Streak</div>
+                        </div>
+                    </div>
+                </div>
                 <div id="medicines-container">
                     <div class="empty-state">
                         <div class="empty-state-icon">💊</div>
-                        <h3>No medicines added</h3>
-                        <p>Select days and add your first medicine</p>
+                        <h3>No medicines scheduled</h3>
+                        <p>Add medicines for specific days</p>
                         <button class="btn btn-primary" onclick="showSection('add')">Add Medicine</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Add Medicine -->
-            <section id="add" class="section">
-                <form id="medicine-form">
-                    <div class="form-group">
-                        <label>Medicine Name *</label>
-                        <input type="text" id="medicine-name" placeholder="e.g., Vitamin D" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Dosage *</label>
-                        <input type="text" id="medicine-dosage" placeholder="e.g., 1 tablet (1000 IU)" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Time *</label>
-                        <div class="time-group">
-                            <input type="time" id="medicine-time" required>
-                            <select id="time-period">
-                                <option value="AM">AM</option>
-                                <option value="PM">PM</option>
-                            </select>
+            <!-- Profile -->
+            <section id="profile" class="section">
+                <div class="card">
+                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 600;">Health Profile</h2>
+                    <div style="display: grid; gap: 1rem;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="profile-firstname">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="profile-lastname">
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- NEW DAY SELECTION -->
-                    <div class="days-group">
-                        <label>Select Days <span style="font-size: 0.8rem; opacity: 0.7;">(Choose specific days)</span></label>
-                        <div class="days-grid">
-                            <button type="button" class="day-btn" data-day="0">Sun</button>
-                            <button type="button" class="day-btn" data-day="1">Mon</button>
-                            <button type="button" class="day-btn" data-day="2">Tue</button>
-                            <button type="button" class="day-btn" data-day="3">Wed</button>
-                            <button type="button" class="day-btn" data-day="4">Thu</button>
-                            <button type="button" class="day-btn" data-day="5">Fri</button>
-                            <button type="button" class="day-btn" data-day="6">Sat</button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" id="profile-age">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" id="profile-phone">
+                            </div>
                         </div>
-                        <div id="selected-days-display" style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;"></div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">✅ Add Reminder</button>
-                </form>
-            </section>
-
-            <!-- History -->
-            <section id="history" class="section">
-                <div id="history-container">
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📋</div>
-                        <h3>No history yet</h3>
-                        <p>Medicine history will appear here</p>
+                        <div class="form-group">
+                            <label>Emergency Contact</label>
+                            <input type="text" id="profile-emergency">
+                        </div>
+                        <div class="form-group">
+                            <label>Allergies</label>
+                            <textarea id="profile-allergies" rows="3" style="resize: vertical;"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="userProfile.saveProfile()">Save Profile</button>
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
 
-    <!-- Alarm Modal -->
-    <div id="alarm-modal" class="alarm-modal">
-        <div class="alarm-content">
-            <div class="alarm-icon">⏰💊</div>
-            <h2 class="alarm-title" id="alarm-title">Time for medicine!</h2>
-            <p class="alarm-subtitle" id="alarm-subtitle"></p>
-            <button class="btn btn-success" id="taken-btn">✅ Taken</button>
-            <button class="btn btn-danger" id="missed-btn">❌ Missed</button>
-        </div>
-    </div>
-
-    <!-- Notification -->
-    <div id="notification" class="notification">
-        <span id="notification-text"></span>
-    </div>
-
-    <script>
-        class MedicineReminder {
-            constructor() {
-                this.medicines = JSON.parse(localStorage.getItem('medicines')) || [];
-                this.history = JSON.parse(localStorage.getItem('history')) || [];
-                this.editingId = null;
-                this.selectedDays = new Set();
-                this.init();
-            }
-
-            init() {
-                this.bindEvents();
-                this.bindDayButtons();
-                this.renderDashboard();
-                this.renderHistory();
-                this.startAlarmCheck();
-                this.requestPermissions();
-            }
-
-            bindEvents() {
-                document.getElementById('medicine-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    if (this.selectedDays.size === 0) {
-                        alert('Please select at least one day!');
-                        return;
-                    }
-                    this.saveMedicine();
-                });
-
-                document.getElementById('taken-btn').addEventListener('click', () => this.handleAlarmAction('taken'));
-                document.getElementById('missed-btn').addEventListener('click', () => this.handleAlarmAction('missed'));
-            }
-
-            bindDayButtons() {
-                document.querySelectorAll('.day-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const day = parseInt(e.target.dataset.day);
-                        if (this.selectedDays.has(day)) {
-                            this.selectedDays.delete(day);
-                            e.target.classList.remove('selected');
-                        } else {
-                            this.selectedDays.add(day);
-                            e.target.classList.add('selected');
-                        }
-                        this.updateDaysDisplay();
-                    });
-                });
-            }
-
-            updateDaysDisplay() {
-                const display = document.getElementById('selected-days-display');
-                const days = Array.from(this.selectedDays).sort((a,b) => a-b);
-                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                
-                if (days.length === 0) {
-                    display.textContent = 'No days selected';
-                    display.style.color = '#ef4444';
-                } else if (days.length === 7) {
-                    display.innerHTML = '✅ Every day';
-                    display.style.color = '#10b981';
-                } else {
-                    display.innerHTML = days.map(d => `<span class="day-tag">${dayNames[d]}</span>`).join('');
-                    display.style.color = '#3b82f6';
-                }
-            }
-
-            saveMedicine() {
-                const name = document.getElementById('medicine-name').value;
-                const dosage = document.getElementById('medicine-dosage').value;
-                const time = document.getElementById('medicine-time').value;
-                const period = document.getElementById('time-period').value;
-                const days = Array.from(this.selectedDays);
-
-                const medicineData = {
-                    id: this.editingId || Date.now(),
-                    name,
-                    dosage,
-                    time,
-                    period,
-                    days: days,
-                    status: 'upcoming',
-                    createdAt: new Date().toISOString()
-                };
-
-                if (this.editingId) {
-                    const index = this.medicines.findIndex(m => m.id === this.editingId);
-                    this.medicines[index] = medicineData;
-                    this.showNotification('✅ Medicine updated!');
-                } else {
-                    this.medicines.unshift(medicineData);
-                    this.showNotification('✅ Reminder added for selected days!');
-                }
-
-                this.saveData();
-                this.renderDashboard();
-                this.resetForm();
-                showSection('dashboard');
-            }
-
-            editMedicine(id) {
-                const medicine = this.medicines.find(m => m.id === id);
-                if (medicine) {
-                    this.editingId = id;
-                    document.getElementById('medicine-name').value = medicine.name;
-                    document.getElementById('medicine-dosage').value = medicine.dosage;
-                    document.getElementById('medicine-time').value = medicine.time;
-                    document.getElementById('time-period').value = medicine.period;
-                    
-                    // Restore selected days
-                    this.selectedDays.clear();
-                    medicine.days.forEach(day => this.selectedDays.add(day));
-                    document.querySelectorAll('.day-btn').forEach(btn => {
-                        btn.classList.toggle('selected', this.selectedDays.has(parseInt(btn.dataset.day)));
-                    });
-                    this.updateDaysDisplay();
-                    
-                    showSection('add');
-                }
-            }
-
-            deleteMedicine(id) {
-                if (confirm('Delete this medicine reminder?')) {
-                    this.medicines = this.medicines.filter(m => m.id !== id);
-                    this.saveData();
-                    this.renderDashboard();
-                    this.showNotification('🗑️ Medicine deleted');
-                }
-            }
-
-            markStatus(id, status) {
-                const medicine = this.medicines.find(m => m.id === id);
-                if (medicine) {
-                    medicine.status = status;
-                    this.addToHistory(medicine, status);
-                    this.saveData();
-                    this.renderDashboard();
-                }
-            }
-
-            addToHistory(medicine, action) {
-                this.history.unshift({
-                    ...medicine,
-                    action,
-                    timestamp: new Date().toLocaleString()
-                });
-                if (this.history.length > 50) {
-                    this.history = this.history.slice(0, 50);
-                }
-            }
-
-            resetForm() {
-                this.editingId = null;
-                this.selectedDays.clear();
-                document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('selected'));
-                document.getElementById('medicine-form').reset();
-                this.updateDaysDisplay();
-            }
-
-            getDayNames(days) {
-                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                return days.map(d => dayNames[d]).join(', ');
-            }
-
-            renderDashboard() {
-                const container = document.getElementById('medicines-container');
-                
-                if (this.medicines.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">💊</div>
-                            <h3>No medicines added</h3>
-                            <p>Select days and add your first medicine</p>
-                            <button class="btn btn-primary" onclick="showSection('add')">Add Medicine</button>
+            <!-- Add Medicine (Same as before with day selection) -->
+            <section id="add" class="section">
+                <div class="card">
+                    <form id="medicine-form">
+                        <div class="form-group">
+                            <label>Medicine Name *</label>
+                            <input type="text" id="medicine-name" placeholder="e.g., Vitamin D" required>
                         </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = this.medicines.map(medicine => {
-                    const displayTime = `${medicine.time} ${medicine.period}`;
-                    const dayNames = this.getDayNames(medicine.days);
-                    const statusClass = `status-${medicine.status}`;
-                    
-                    return `
-                        <div class="medicine-card">
-                            <div class="medicine-header">
-                                <div>
-                                    <div class="medicine-name">${medicine.name}</div>
-                                    <div class="medicine-dosage">${medicine.dosage}</div>
-                                </div>
-                                <div class="medicine-time">${displayTime}</div>
-                            </div>
-                            <div class="days-display">
-                                <span style="font-size: 0.85rem; color: #64748b; margin-right: 0.5rem;">Days:</span>
-                                ${medicine.days.map(d => `<span class="day-tag">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d]}</span>`).join('')}
-                            </div>
-                            <span class="status-badge ${statusClass}">${this.getStatusText(medicine.status)}</span>
-                            <div class="card-actions">
-                                ${medicine.status === 'upcoming' || medicine.status === 'due' ? `
-                                    <button class="btn btn-success" onclick="app.markStatus(${medicine.id}, 'taken')" style="flex: 1;">✅ Taken</button>
-                                    <button class="btn btn-danger" onclick="app.markStatus(${medicine.id}, 'missed')" style="flex: 1;">❌ Missed</button>
-                                ` : ''}
-                                <button class="btn btn-edit" onclick="app.editMedicine(${medicine.id})">✏️ Edit</button>
-                                <button class="btn btn-danger" style="padding: 0.75rem 1rem; font-size: 0.85rem;" onclick="app.deleteMedicine(${medicine.id})">🗑️ Delete</button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            renderHistory() {
-                const container = document.getElementById('history-container');
-                
-                if (this.history.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📋</div>
-                            <h3>No history yet</h3>
-                            <p>Medicine history will appear here</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = this.history.slice(0, 20).map(entry => `
-                    <div class="medicine-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="font-weight: 600; font-size: 1.1rem;">${entry.name}</div>
-                                <div style="color: #64748b; font-size: 0.9rem;">${entry.dosage}</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-size: 0.9rem; font-weight: 500;">${entry.time} ${entry.period}</div>
-                                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">${entry.timestamp}</div>
-                                <span style="padding: 0.25rem 0.75rem; background: ${entry.action === 'taken' ? '#d1fae5' : '#fee2e2'}; color: ${entry.action === 'taken' ? '#065f46' : '#991b1b'}; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">${entry.action.toUpperCase()}</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            getStatusText(status) {
-                const texts = {
-                    upcoming: 'Upcoming',
-                    due: 'Due Today',
-                    taken: 'Taken',
-                    missed: 'Missed'
-                };
-                return texts[status] || status;
-            }
-
-            startAlarmCheck() {
-                setInterval(() => {
-                    this.checkAlarms();
-                }, 30000);
-            }
-
-            checkAlarms() {
-                const now = new Date();
-                const today = now.getDay(); // 0 = Sunday, 6 = Saturday
-                
-                this.medicines.forEach(medicine => {
-                    // Check if today is a scheduled day
-                    if (!medicine.days.includes(today)) return;
-                    if (medicine.status !== 'upcoming' && medicine.status !== 'due') return;
-
-                    const [hours, minutes] = this.convertTo24Hour(medicine.time, medicine.period).split(':');
-                    const alarmTime = new Date();
-                    alarmTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-
-                    const timeDiff = alarmTime - now;
-                    
-                    if (timeDiff > 0 && timeDiff <= 120000) { // 2 minute window
-                        medicine.status = 'due';
-                        this.triggerAlarm(medicine);
-                        this.saveData();
-                        this.renderDashboard();
-                    }
-                });
-            }
-
-            convertTo24Hour(time, period) {
-                let [hours, minutes] = time.split(':').map(Number);
-                if (period === 'PM' && hours !== 12) hours += 12;
-                if (period === 'AM' && hours === 12) hours = 0;
-                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-            }
-
-            triggerAlarm(medicine) {
-                document.getElementById('alarm-title').textContent = `Time for ${medicine.name}`;
-                document.getElementById('alarm-subtitle').textContent = `${medicine.dosage} • ${medicine.time} ${medicine.period}`;
-                document.getElementById('alarm-modal').classList.add('active');
-                
-                this.playAlarmSound();
-                
-                if (navigator.vibrate) {
-                    navigator.vibrate([200, 100, 200]);
-                }
-            }
-
-            handleAlarmAction(action) {
-                document.getElementById('alarm-modal').classList.remove('active');
-                const dueMedicine = this.medicines.find(m => m.status === 'due');
-                if (dueMedicine) {
-                    this.markStatus(dueMedicine.id, action);
-                }
-            }
-
-            playAlarmSound() {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 1);
-            }
-
-            showNotification(message) {
-                const notification = document.getElementById('notification');
-                document.getElementById('notification-text').textContent = message;
-                notification.classList.add('show');
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
-            }
-
-            saveData() {
-                localStorage.setItem('medicines', JSON.stringify(this.medicines));
-                localStorage.setItem('history', JSON.stringify(this.history));
-            }
-
-            requestPermissions() {
-                if ('Notification' in window) {
-                    Notification.requestPermission();
-                }
-            }
-        }
-
-        // Global app instance
-        const app = new MedicineReminder();
-
-        // Navigation functions
-        function showSection(sectionName) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            document.getElementById(sectionName).classList.add('active');
-            event.target.classList.add('active');
-            
-            if (sectionName === 'dashboard') app.renderDashboard();
-            if (sectionName === 'history') app.renderHistory();
-        }
-    </script>
-</body>
-</html>
+                        
+                        <div class="form-group">
+                            <label>Dos
