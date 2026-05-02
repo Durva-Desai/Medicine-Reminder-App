@@ -533,6 +533,38 @@
         const errorMessage = document.getElementById('errorMessage');
         const successMessage = document.getElementById('successMessage');
 
+        <!-- your login + dashboard code -->
+
+
+
+        function showDashboard() {
+              document.getElementById("loginPage").classList.remove("active");
+              document.getElementById("dashboardPage").classList.add("active");
+        }
+
+        function loginUser(e) {
+              e.preventDefault();
+
+              let name = document.getElementById("name").value;
+
+                     if (name === "") {
+                     alert("Enter name");
+                    return;
+                      }
+
+                  localStorage.setItem("userName", name);
+
+              showDashboard(); // 🔥 IMPORTANT
+        }
+
+        window.onload = function () {
+              let name = localStorage.getItem("userName");
+
+                      if (name) {
+            showDashboard();
+         }
+};
+
         // Tab Switching
         function switchTab(tab) {
             // Update tabs
