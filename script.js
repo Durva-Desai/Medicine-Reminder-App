@@ -1,5 +1,5 @@
 // Simple XOR encryption (for demo purposes - secure enough for local storage)
-const ENCRYPTION_KEY = 'MediCare2024!SecureKey#ReminderApp';
+/*const ENCRYPTION_KEY = 'MediCare2024!SecureKey#ReminderApp';
 function encrypt(text) {
     let encrypted = '';
     for (let i = 0; i < text.length; i++) {
