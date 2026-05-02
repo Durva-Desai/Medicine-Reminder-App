@@ -3,774 +3,694 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediBloom 🌸 - Login & Registration</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>MediCare Reminder - Login & Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-            --soft-bg: rgba(255, 255, 255, 0.95);
-            --glass-bg: rgba(255, 255, 255, 0.25);
-            --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
-            --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.3);
-            --border-glass: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--primary-gradient);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="20" cy="20" r="2" fill="url(%23a)"/><circle cx="80" cy="80" r="1.5" fill="url(%23a)"/><circle cx="40" cy="70" r="1" fill="url(%23a)"/><circle cx="90" cy="30" r="1.2" fill="url(%23a)"/></svg>');
-            animation: float 20s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(10px) rotate(240deg); }
-        }
-
-        .main-container {
-            display: flex;
-            max-width: 1000px;
-            width: 100%;
-            gap: 50px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Left Side - Illustration */
-        .illustration {
-            flex: 1;
-            max-width: 500px;
-            opacity: 0;
-            animation: slideInLeft 1s ease-out 0.5s forwards;
-        }
-
-        .illustration img {
-            width: 100%;
-            height: auto;
-            border-radius: 30px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        /* Right Side - Form */
-        .form-container {
-            flex: 1;
-            max-width: 450px;
-            width: 100%;
-            opacity: 0;
-            animation: slideInRight 1s ease-out 0.3s forwards;
-        }
-
-        .form-card {
-            background: var(--soft-bg);
-            backdrop-filter: blur(25px);
-            border-radius: 30px;
-            padding: 50px 40px;
-            box-shadow: var(--shadow-soft);
-            border: var(--border-glass);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--primary-gradient);
-        }
-
-        .logo {
-            font-family: 'Quicksand', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #667eea);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            animation: gradientShift 3s ease infinite, glow 2s ease-in-out infinite alternate;
-            text-align: center;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5)); }
-            to { filter: drop-shadow(0 0 25px rgba(78, 205, 196, 0.7)); }
-        }
-
-        .tagline {
-            color: #636e72;
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            margin-bottom: 35px;
-            text-align: center;
-            font-weight: 500;
-            line-height: 1.5;
-        }
-
-        .form-tabs {
-            display: flex;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 15px 20px;
-            border: none;
-            background: none;
-            color: #667eea;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .tab-btn.active {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .form-content {
-            display: none;
-        }
-
-        .form-content.active {
-            display: block;
-            animation: fadeInUp 0.4s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .form-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2d3436;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 18px 20px 18px 50px;
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 20px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-            font-family: inherit;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-2px);
-            background: white;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #667eea;
-            font-size: 1.2rem;
-            z-index: 2;
-        }
-
-        .password-container {
-            position: relative;
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #667eea;
-            cursor: pointer;
-            font-size: 1.1rem;
-            padding: 5px;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            font-family: inherit;
-            margin-top: 10px;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-success {
-            background: var(--success-gradient);
-            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
-        }
-
-        .btn-success:hover:not(:disabled) {
-            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.6);
-        }
-
-        .switch-tab {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px dashed rgba(102, 126, 234, 0.3);
-            color: #667eea;
-            margin-top: 20px;
-            padding: 12px 20px;
-            border-radius: 15px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .switch-tab:hover {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: #667eea;
-            transform: translateY(-1px);
-        }
-
-        .privacy-note {
-            margin-top: 25px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            font-size: 14px;
-            color: #636e72;
-            border: var(--border-glass);
-        }
-
-        .error-message {
-            background: rgba(255, 107, 107, 0.2);
-            color: #e17055;
-            padding: 12px 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ff6b6b;
-            display: none;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .success-message {
-            background: rgba(0, 184, 148, 0.2);
-            color: #00b894;
-            padding: 12px 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border-left: 4px solid #00b894;
-            display: none;
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-                gap: 30px;
-                text-align: center;
-            }
-
-            .illustration {
-                max-width: 300px;
-            }
-
-            .form-card {
-                padding: 40px 25px;
-                margin: 0 10px;
-            }
-
-            .form-tabs {
-                margin-bottom: 25px;
-            }
-
-            .logo {
-                margin-bottom: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            .form-card {
-                padding: 30px 20px;
-            }
-
-            .tagline {
-                font-size: 1rem;
-            }
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
 </head>
 <body>
-    <div class="main-container">
+    <div class="container">
         <!-- Left Side - Illustration -->
-        <div class="illustration">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRkZGQkYwIiByeD0iNTAiLz4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMTUwIiByPSI4MCIgZmlsbD0iI0ZGQUI5QSIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxODAiIHI9IjQwIiBmaWxsPSIjRkZFQTQ3Ii8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjE5MCIgcj0iMzUiIGZpbGw9IiNGRkM1OEEiLz4KPGNpcmNsZSBjeD0iMjMwIiBjeT0iMjgwIiByPSIyNSIgZmlsbD0iIzRQQ0ZFIi8+CjxjaXJjbGUgY3g9IjI3MCIgY3k9IjMwMCIgcj0iMzAiIGZpbGw9IiMwMEYyRkUiLz4KPHBhdGggZD0iTTIwMCAzMjAgMTUwIDM4MCAxODAgNDAwIDIzMCAzNzAgMjAwIDMyMCIgZmlsbD0iI0ZGQUI5QSIvPgo8L3N2Zz4K" alt="Medicine Illustration">
+        <div class="left-panel">
+            <div class="illustration">
+                <i class="fas fa-pills icon-large"></i>
+                <h1>MediCare Reminder</h1>
+                <p>Never miss your medicine again. Stay healthy, stay reminded!</p>
+            </div>
         </div>
 
-        <!-- Right Side - Form -->
-        <div class="form-container">
-            <div class="form-card">
-                <div class="logo">MediBloom 🌸</div>
-                <p class="tagline">
-                    Your friendly medicine reminder with secure, private health tracking
-                </p>
-
-                <!-- Error/Success Messages -->
-                <div class="error-message" id="errorMessage"></div>
-                <div class="success-message" id="successMessage"></div>
-
-                <!-- Form Tabs -->
-                <div class="form-tabs">
-                    <button class="tab-btn active" onclick="switchTab('login')">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('register')">
-                        <i class="fas fa-user-plus"></i> Register
-                    </button>
+        <!-- Right Side - Forms -->
+        <div class="right-panel">
+            <!-- Login Form -->
+            <div class="form-container active" id="loginForm">
+                <div class="form-header">
+                    <h2>Welcome Back!</h2>
+                    <p>Sign in to your MediCare account</p>
                 </div>
+                
+                <form id="loginFormElement">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="loginName" placeholder="Enter your name" required>
+                        <span class="error-message" id="loginNameError"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        <span class="eye-icon" id="loginEye">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <span class="error-message" id="loginPasswordError"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <span>Login</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
 
-                <!-- Login Form -->
-                <div class="form-content active" id="loginFormContent">
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label for="loginName">Full Name</label>
-                            <div class="password-container">
-                                <i class="fas fa-user input-icon"></i>
-                                <input type="text" class="form-input" id="loginName" placeholder="Enter your full name" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="loginPassword">Password</label>
-                            <div class="password-container">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
-                                <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary">
-                            <span id="loginBtnText"><i class="fas fa-sign-in-alt"></i> Login Securely</span>
-                            <span id="loginLoading" class="loading" style="display: none;"></span>
-                        </button>
-                    </form>
-                    <a href="#" class="switch-tab" onclick="switchTab('register')">
-                        <i class="fas fa-user-plus"></i> Don't have an account? Register Now
-                    </a>
-                </div>
-
-                <!-- Register Form -->
-                <div class="form-content" id="registerFormContent">
-                    <form id="registerForm">
-                        <div class="form-group">
-                            <label for="registerName">Full Name</label>
-                            <div class="password-container">
-                                <i class="fas fa-user input-icon"></i>
-                                <input type="text" class="form-input" id="registerName" placeholder="Enter your full name" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="registerHealth">Health Details</label>
-                            <div class="password-container">
-                                <i class="fas fa-heartbeat input-icon"></i>
-                                <input type="text" class="form-input" id="registerHealth" placeholder="Age, conditions, notes (e.g., 65, Diabetes, BP)" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="registerPassword">Create Password</label>
-                            <div class="password-container">
-                                <i class="fas fa-lock input-icon"></i>
-                                <input type="password" class="form-input" id="registerPassword" placeholder="Create a secure password" required>
-                                <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="btn-primary btn-success">
-                            <span id="registerBtnText"><i class="fas fa-user-plus"></i> Create Account</span>
-                            <span id="registerLoading" class="loading" style="display: none;"></span>
-                        </button>
-                    </form>
-                    <a href="#" class="switch-tab" onclick="switchTab('login')">
-                        <i class="fas fa-sign-in-alt"></i> Already have an account? Login
-                    </a>
+                <div class="form-footer">
+                    <p>Don't have an account? <span class="switch-link" onclick="showRegister()">Register here</span></p>
                 </div>
             </div>
 
-            <!-- Privacy Note -->
-            <div class="privacy-note">
-                <i class="fas fa-shield-alt"></i>
-                <strong>Your data is PRIVATE & ENCRYPTED</strong><br>
-                - Stored locally in your browser<br>
-                - No external servers or Gmail required<br>
-                - Simple encryption for maximum privacy 🔐
+            <!-- Register Form -->
+            <div class="form-container" id="registerForm">
+                <div class="form-header">
+                    <h2>Create Account</h2>
+                    <p>Join MediCare Reminder today</p>
+                </div>
+                
+                <form id="registerFormElement">
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="regName" placeholder="Full Name" required>
+                        <span class="error-message" id="regNameError"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-calendar input-icon"></i>
+                        <input type="number" id="regAge" placeholder="Age" min="1" max="120" required>
+                        <span class="error-message" id="regAgeError"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-notes-medical input-icon"></i>
+                        <input type="text" id="regCondition" placeholder="Medical Condition/Notes (optional)">
+                        <span class="error-message" id="regConditionError"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="regPassword" placeholder="Create Password" required>
+                        <span class="eye-icon" id="regEye">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <span class="error-message" id="regPasswordError"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+                        <span class="eye-icon" id="regConfirmEye">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                        <span class="error-message" id="regConfirmPasswordError"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <span>Create Account</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <span class="switch-link" onclick="showLogin()">Login here</span></p>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Simple Encryption Key (Production would use stronger crypto)
-        const ENCRYPTION_KEY = 'MediBloomSecure2024!@#K3yV1.0';
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h3>Success!</h3>
+            <p id="successMessage">Welcome to MediCare Reminder!</p>
+            <button class="btn-success" onclick="goToDashboard()">Go to Dashboard</button>
+        </div>
+    </div>
 
-        // DOM Elements
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-
-        // Tab Switching
-        function switchTab(tab) {
-            // Update tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Show correct form
-            document.querySelectorAll('.form-content').forEach(content => content.classList.remove('active'));
-            document.getElementById(tab === 'login' ? 'loginFormContent' : 'registerFormContent').classList.add('active');
-            
-            // Clear messages
-            clearMessages();
-        }
-
-        // Password Toggle
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = input.nextElementSibling.querySelector('i');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-        // Message Functions
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-        }
-
-        function showSuccess(message) {
-            successMessage.textContent = message;
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
-        }
-
-        function clearMessages() {
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
-        }
-
-        // Simple Encryption/Decryption
-        function encrypt(data) {
-            try {
-                const str = JSON.stringify(data);
-                let result = '';
-                for (let i = 0; i < str.length; i++) {
-                    result += String.fromCharCode(str.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length));
-                }
-                return btoa(encodeURIComponent(result));
-            } catch (e) {
-                console.error('Encryption failed:', e);
-                return null;
-            }
-        }
-
-        function decrypt(encrypted) {
-            try {
-                const decoded = decodeURIComponent(atob(encrypted));
-                let result = '';
-                for (let i = 0; i < decoded.length; i++) {
-                    result += String.fromCharCode(decoded.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length));
-                }
-                return JSON.parse(result);
-            } catch (e) {
-                console.error('Decryption failed:', e);
-                return null;
-            }
-        }
-
-        // Form Validation
-        function validateName(name) {
-            const trimmed = name.trim();
-            return trimmed.length >= 2 && trimmed.length <= 50 && /^[a-zA-Z\s]+$/.test(trimmed);
-        }
-
-        function validatePassword(password) {
-            return password.length >= 6 && password.length <= 50;
-        }
-
-        function validateHealthDetails(details) {
-            const trimmed = details.trim();
-            return trimmed.length >= 5 && trimmed.length <= 200;
-        }
-
-        // Login Handler
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('loginName').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Validation
-            if (!validateName(name)) {
-                showError('Please enter a valid name (2-50 characters, letters only)');
-                return;
-            }
-            
-            if (!validatePassword(password)) {
-                showError('Password must be 6-50 characters long');
-                return;
-            }
-            
-            // Show loading
-            const btnText = document.getElementById('loginBtnText');
-            const loading = document.getElementById('loginLoading');
-            btnText.style.display = 'none';
-            loading.style.display = 'inline-block';
-            
-            // Check user exists
-            const userKey = `medi_bloom_${name.toLowerCase().replace(/\s+/g, '_')}`;
-            const encryptedUser = localStorage.getItem(userKey);
-            
-            setTimeout(() => {
-                if (encryptedUser) {
-                    const userData = decrypt(encryptedUser);
-                    if (userData && userData.password === password) {
-                        // Successful login
-                        showSuccess('Login successful! Redirecting to dashboard...');
-                        setTimeout(() => {
-                            // Store user session and redirect
-                            sessionStorage.setItem('currentUser', userKey);
-                            window.location.href = 'dashboard.html'; // Or show dashboard
-                        }, 1500);
-                    } else {
-                        showError('Invalid name or password!');
-                    }
-                } else {
-                    showError('No account found with this name!');
-                }
-                
-                // Reset button
-                btnText.style.display = 'inline';
-                loading.style.display = 'none';
-            }, 1000);
-        });
-
-        // Register Handler
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('registerName').value;
-            const healthDetails = document.getElementById('registerHealth').value;
-            const password = document.getElementById('registerPassword').value;
-            
-            // Validation
-            if (!validateName(name)) {
-                showError('Please enter a valid name (2-50 characters, letters only)');
-                return;
-            }
-            
-            if (!validateHealthDetails(healthDetails)) {
-                showError('Health details must be 5-200 characters');
-                return;
-            }
-            
-            if (!validatePassword(password)) {
-                showError('Password must be 6-50 characters long');
-                return;
-            }
-            
-            // Show loading
-            const btnText = document.getElementById('registerBtnText');
-            const loading = document.getElementById('registerLoading');
-            btnText.style.display = 'none';
-            loading.style.display = 'inline-block';
-            
-            // Check if user already exists
-            const userKey = `medi_bloom_${name.toLowerCase().replace(/\s+/g, '_')}`;
-            const existingUser = localStorage.getItem(userKey);
-            
-            setTimeout(() => {
-                if (existingUser) {
-                    showError('Account with this name already exists! Please login or use different name.');
-                } else {
-                    // Create new user
-                    const newUser = {
-                        name: name.trim(),
-                        healthDetails: healthDetails.trim(),
-                        password: password,
-                        created: new Date().toISOString(),
-                        medicines: [],
-                        history: []
-                    };
-                    
-                    // Encrypt and save
-                    const encryptedUser = encrypt(newUser);
-                    if (encryptedUser) {
-                        localStorage.setItem(userKey, encryptedUser);
-                        
-                        // Success
-                        showSuccess('Account created successfully! Redirecting to dashboard...');
-                        sessionStorage.setItem('currentUser', userKey);
-                        
-                        setTimeout(() => {
-                            window.location.href = 'dashboard.html'; // Or show dashboard
-                        }, 1500);
-                    } else {
-                        showError('Registration failed. Please try again.');
-                    }
-                }
-                
-                // Reset button
-                btnText.style.display = 'inline';
-                loading.style.display = 'none';
-            }, 1200);
-        });
-
-        // Enter key support
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const activeForm = document.querySelector('.form-content.active form');
-                if (activeForm) {
-                    activeForm.dispatchEvent(new Event('submit'));
-                }
-            }
-        });
-
-        // Auto-focus first input
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('loginName')?.focus();
-        });
-
-        // Form input validation feedback
-        document.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('input', function() {
-                this.style.borderColor = this.checkValidity() ? 'rgba(102, 126, 234, 0.3)' : '#ff6b6b';
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-/*<div class="login-page page active" id="loginPage"></div>
-<div class="container page" id="dashboardPage"></div>*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    width: 95%;
+    height: 85vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.left-panel {
+    flex: 1;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.illustration {
+    text-align: center;
+    color: #4a5568;
+}
+
+.icon-large {
+    font-size: 6rem;
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.illustration h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.illustration p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.right-panel {
+    flex: 1.2;
+    padding: 3rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 450px;
+    display: none;
+}
+
+.form-container.active {
+    display: block;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.form-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: #718096;
+    font-size: 1rem;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 1.1rem;
+    z-index: 2;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #a0aec0;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.eye-icon:hover {
+    color: #667eea;
+}
+
+.error-message {
+    display: block;
+    color: #e53e3e;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    min-height: 1rem;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.form-footer p {
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+.switch-link {
+    color: #667eea;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.switch-link:hover {
+    color: #764ba2;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    animation: modalSlideIn 0.4s ease-out;
+    max-width: 450px;
+    width: 90%;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #48bb78;
+    margin-bottom: 1.5rem;
+}
+
+.modal-content h3 {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    color: #718096;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(72, 187, 120, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: 95vh;
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .left-panel {
+        height: 30%;
+        padding: 1.5rem;
+    }
+    
+    .right-panel {
+        height: 70%;
+        padding: 2rem 2rem;
+    }
+    
+    .illustration h1 {
+        font-size: 2rem;
+    }
+    
+    .icon-large {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .right-panel {
+        padding: 1.5rem;
+    }
+    
+    .form-header h2 {
+        font-size: 1.8rem;
+    }
+}
+// Simple XOR encryption (for demo purposes - secure enough for local storage)
+const ENCRYPTION_KEY = 'MediCare2024!SecureKey#ReminderApp';
+function encrypt(text) {
+    let encrypted = '';
+    for (let i = 0; i < text.length; i++) {
+        encrypted += String.fromCharCode(text.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length));
+    }
+    return btoa(encrypted);
+}
+
+function decrypt(encryptedText) {
+    try {
+        const decoded = atob(encryptedText);
+        let decrypted = '';
+        for (let i = 0; i < decoded.length; i++) {
+            decrypted += String.fromCharCode(decoded.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length));
+        }
+        return decrypted;
+    } catch {
+        return null;
+    }
+}
+
+// DOM Elements
+const loginForm = document.getElementById('loginFormElement');
+const registerForm = document.getElementById('registerFormElement');
+const successModal = document.getElementById('successModal');
+const successMessage = document.getElementById('successMessage');
+
+// Form switching
+function showLogin() {
+    document.getElementById('loginForm').classList.add('active');
+    document.getElementById('registerForm').classList.remove('active');
+}
+
+function showRegister() {
+    document.getElementById('registerForm').classList.add('active');
+    document.getElementById('loginForm').classList.remove('active');
+}
+
+// Password visibility toggle
+function togglePassword(inputId, eyeId) {
+    const input = document.getElementById(inputId);
+    const eye = document.getElementById(eyeId);
+    const icon = eye.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// Event listeners for eye icons
+document.getElementById('loginEye').addEventListener('click', () => togglePassword('loginPassword', 'loginEye'));
+document.getElementById('regEye').addEventListener('click', () => togglePassword('regPassword', 'regEye'));
+document.getElementById('regConfirmEye').addEventListener('click', () => togglePassword('regConfirmPassword', 'regConfirmEye'));
+
+// Validation functions
+function validateName(name) {
+    const nameRegex = /^[a-zA-Z\s]{2,50}$/;
+    return nameRegex.test(name) && name.trim().length >= 2;
+}
+
+function validatePassword(password) {
+    return password.length >= 6;
+}
+
+function validateAge(age) {
+    const ageNum = parseInt(age);
+    return ageNum >= 1 && ageNum <= 120;
+}
+
+function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+
+function clearError(elementId) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = '';
+    errorElement.style.display = 'none';
+}
+
+// Clear all errors
+function clearAllErrors(formPrefix) {
+    ['Name', 'Password', 'Age', 'Condition', 'ConfirmPassword'].forEach(field => {
+        clearError(`${formPrefix}${field}Error`);
+    });
+}
+
+// Login Handler
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearAllErrors('login');
+    
+    const name = document.getElementById('loginName').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    
+    // Validation
+    if (!validateName(name)) {
+        showError('loginNameError', 'Please enter a valid name (2+ characters, letters only)');
+        return;
+    }
+    
+    if (!validatePassword(password)) {
+        showError('loginPasswordError', 'Password must be at least 6 characters');
+        return;
+    }
+    
+    // Check stored users
+    const users = JSON.parse(localStorage.getItem('medicUsers') || '[]');
+    const encryptedPassword = encrypt(password);
+    
+    const user = users.find(u => u.name.toLowerCase() === name.toLowerCase() && u.password === encryptedPassword);
+    
+    if (user) {
+        // Login successful
+        localStorage.setItem('currentUser', JSON.stringify({
+            name: user.name,
+            age: user.age,
+            condition: user.condition
+        }));
+        successMessage.textContent = `Welcome back, ${user.name}!`;
+        successModal.classList.add('active');
+    } else {
+        showError('loginNameError', 'No account found with this name/password');
+        showError('loginPasswordError', '');
+    }
+});
+
+// Register Handler
+registerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearAllErrors('reg');
+    
+    const name = document.getElementById('regName').value.trim();
+    const age = document.getElementById('regAge').value;
+    const condition = document.getElementById('regCondition').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('regConfirmPassword').value;
+    
+    // Validation
+    if (!validateName(name)) {
+        showError('regNameError', 'Please enter a valid name (2+ characters, letters only)');
+        return;
+    }
+    
+    if (!validateAge(age)) {
+        showError('regAgeError', 'Please enter a valid age (1-120)');
+        return;
+    }
+    
+    if (!validatePassword(password)) {
+        showError('regPasswordError', 'Password must be at least 6 characters');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        showError('regConfirmPasswordError', 'Passwords do not match');
+        return;
+    }
+    
+    // Check if user already exists
+    const users = JSON.parse(localStorage.getItem('medicUsers') || '[]');
+    if (users.find(u => u.name.toLowerCase() === name.toLowerCase())) {
+        showError('regNameError', 'User with this name already exists');
+        return;
+    }
+    
+    // Register new user
+    const newUser = {
+        name,
+        age: parseInt(age),
+        condition: condition || 'No specific conditions noted',
+        password: encrypt(password),
+        createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('medicUsers', JSON.stringify(users));
+    
+    // Set as current user
+    localStorage.setItem('currentUser', JSON.stringify({
+        name,
+        age: parseInt(age),
+        condition: condition || 'No specific conditions noted'
+    }));
+    
+    successMessage.textContent = `Welcome ${name}! Your account has been created successfully.`;
+    successModal.classList.add('active');
+});
+
+// Dashboard redirect
+function goToDashboard() {
+    // In a real app, this would navigate to dashboard.html
+    // For demo, we'll create a simple dashboard in the same page
+    document.body.innerHTML = `
+        <div style="font-family: 'Poppins', sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+            <div style="background: rgba(255,255,255,0.1); padding: 3rem; border-radius: 25px; backdrop-filter: blur(20px);">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem;">🎉 Welcome to Dashboard!</h1>
+                <div style="background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 20px; margin: 2rem 0;">
+                    <h2 style="margin-bottom: 1rem;">User Profile</h2>
+                    <p><strong>Name:</strong> ${JSON.parse(localStorage.getItem('currentUser') || '{}').name || 'User'}</p>
+                    <p><strong>Age:</strong> ${JSON.parse(localStorage.getItem('currentUser') || '{}').age || 'N/A'}</p>
+                    <p><strong>Condition:</strong> ${JSON.parse(localStorage.getItem('currentUser') || '{}').condition || 'N/A'}</p>
+                </div>
+                <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 1rem 2rem; border-radius: 50px; font-size: 1.1rem; cursor: pointer; font-weight: 600; transition: all 0.3s;">Add Medicine Reminder</button>
+                <p style="margin-top: 2rem; opacity: 0.9;">Your Medicine Reminder Dashboard is ready! 🚀</p>
+            </div>
+        </div>
+    `;
+}
+
+// Close modal on outside click
+window.addEventListener('click', (e) => {
+    if (e.target === successModal) {
+        successModal.classList.remove('active');
+    }
+});
+
+// Auto-focus first input
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('loginName').focus();
+});
